@@ -1,0 +1,40 @@
+(Mac)
+*INSTALL NODE*
+If you have Homebrew, run:
+	$brew install node
+
+Otherwise, 
+1. Install XCode (https://developer.apple.com/technologies/tools/)
+2. Install Git (http://git-scm.com/book/en/Getting-Started-Installing-Git)
+3. Run:
+	$git clone git://github.com/ry/node.git
+	$cd node
+	$./configure
+	$make
+	$sudo make install
+
+Then, type $node -v to ensure node has been successfully installed.
+
+*INSTALL NPM & SOCKET.IO*
+You can install NPM on Mac with one line in the terminal:
+	$curl http://npmjs.org/install.sh | sh
+
+	$cd /path/to/game/root
+	$npm install socket.io
+
+
+*START GAME SERVER*
+	$cd /path/to/game/root
+	$node game.js
+
+
+*ABOUT THE GAME* 
+Tutorial / Game demo taken from Robin Hawkes. http://rawkes.com/articles/creating-a-real-time-multiplayer-game-with-websockets-and-node.html
+
+Canvas game that allows multiple users to interact in a single environment by using web sockets and node.
+
+Next Steps: 
+1) Add objects that randomly appear on stage to collect and add scoring
+2) Add obstacles/maps
+3) Add levels and increase difficulty
+4) Add some art/backgrounds
