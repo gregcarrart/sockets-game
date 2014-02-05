@@ -3,6 +3,15 @@ var Player = function(startX, startY) {
 		y = startY,
 		id,
 		moveAmount = 2;
+	
+	playerImage = new Image();
+	playerImage.src = './images/player.png';
+
+	var mySprite = {
+		width: 32,
+		height: 32,
+		image: playerImage
+	};
 
 	var getX = function() {
 		return x;
@@ -40,8 +49,7 @@ var Player = function(startX, startY) {
 	};
 
 	var draw = function(ctx) {
-		ctx.fillRect(x-5, y-5, 10, 10);
-		ctx.fillStyle = "rgb(200,0,0)";
+		ctx.drawImage(mySprite.image, x,y); 
 	};
 
 	return {

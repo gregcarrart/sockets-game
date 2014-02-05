@@ -2,11 +2,13 @@ var canvas,
 	ctx,
 	keys,
 	localPlayer,
+	localItems,
 	remotePlayers,
 	socket;
 
+
 function init() {
-	canvas = document.getElementById("gameCanvas");
+	canvas = document.getElementById("game-canvas");
 	ctx = canvas.getContext("2d");
 
 	canvas.width = window.innerWidth;
@@ -15,6 +17,7 @@ function init() {
 	keys = new Keys();
 	var startX = Math.round(Math.random()*(canvas.width-5)),
 		startY = Math.round(Math.random()*(canvas.height-5));
+		
 
 	localPlayer = new Player(startX, startY);
 
@@ -41,6 +44,8 @@ var setEventHandlers = function() {
 
 	socket.on("new player", onNewPlayer);
 
+	//socket.on("drop item", onDropItem);
+
 	socket.on("move player", onMovePlayer);
 
 	socket.on("remove player", onRemovePlayer);
@@ -59,14 +64,11 @@ function onKeyup(e) {
 };
 
 function onResize(e) {
-
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 };
 
 function onSocketConnected() {
-	console.log("Connected to socket server");
-	console.log(localPlayer);
 	socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY()});
 };
 
@@ -115,18 +117,22 @@ function update() {
 	if (localPlayer.update(keys)) {
 		socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
 	};
+
+	socket.emit("drop item", {x: localPlayer.getX(), y: localPlayer.getY()})
 };
 
 function draw() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	localPlayer.draw(ctx);
+	//Items(startItemX, startItemY);
 
 	var i;
 	for (i = 0; i < remotePlayers.length; i++) {
 		remotePlayers[i].draw(ctx);
 	};
 };
+ 
 
 function playerById(id) {
 	var i;

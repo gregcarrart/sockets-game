@@ -1,9 +1,11 @@
 var util = require("util"),
 	io = require("socket.io")
 	Player = require("./Player").Player;
+	Items = require("./Items").Items;
 
 var socket,
-	players;
+	players,
+	drops;
 
 function init() {
 	players = [];
@@ -31,6 +33,8 @@ function onSocketConnection(client) {
 	client.on("new player", onNewPlayer);
 
 	client.on("move player", onMovePlayer);
+
+	client.on("drop item", onDropItem);
 };
 
 function onClientDisconnect() {
@@ -77,6 +81,10 @@ function onMovePlayer(data) {
 	this.broadcast.emit("move player", {id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY()});
 };
 
+function onDropItem(data) {
+
+}
+
 function playerById(id) {
 	var i;
 	for (i = 0; i < players.length; i++) {
@@ -86,5 +94,7 @@ function playerById(id) {
 	
 	return false;
 };
+
+
 //**SURPRISE MOTHER FUCKA**//
 init();
